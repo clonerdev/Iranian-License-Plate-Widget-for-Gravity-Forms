@@ -32,6 +32,11 @@ After installing and activating the plugin, you can add the Iranian license plat
 
 ## Changelog
 
+### Version 1.6
+- Increased security
+- Improved documentation
+- Added global error logging and performance for comprehensive log recording at every step
+
 ### Version 1.5
 - Added advanced filters and tools for viewing and analyzing input data
 - Improved security features to prevent misuse of inputs

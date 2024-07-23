@@ -2,7 +2,7 @@
 /*
 Plugin Name: Iranian License Plate Widget for Gravity Forms
 Description: افزودن یک ویجت برای ورودی شماره پلاک خودروهای ایرانی به فرم‌های گراویتی.
-Version: 1.5
+Version: 1.6
 Author: Ali Karimi | nedayeweb
 Author URI: https://nedayeweb.ir
 WC requires at least: 6.4
@@ -175,10 +175,22 @@ function ilp_sanitize_inputs($input) {
 
 add_filter('gform_pre_submission', 'ilp_sanitize_inputs');
 
+// ثبت لاگ برای خطایابی سراسری
+function ilp_log_error($message) {
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+        error_log($message);
+    }
+}
+
+function ilp_log_submission($entry) {
+    ilp_log_error('Submission Data: ' . print_r($entry, true));
+}
+add_action('gform_after_submission', 'ilp_log_submission', 10, 2);
+
 // بهبود مستندات
 function ilp_add_documentation_link($links) {
-    $documentation_link = '<a href="https://example.com/documentation" target="_blank">' . __('مستندات') . '</a>';
-    array_push($links, $documentation_link);
+    $documentation_link = '<a href="https://github.com/clonerdev/Iranian-License-Plate-Widget-for-Gravity-Forms/blob/main/README-FA.md">مستندات</a>';
+    array_unshift($links, $documentation_link);
     return $links;
 }
 add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'ilp_add_documentation_link');
